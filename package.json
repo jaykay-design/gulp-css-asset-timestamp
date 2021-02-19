@@ -1,0 +1,35 @@
+{
+  "name": "gulp-css-asset-timestamp",
+  "version": "0.2.1",
+  "description": "Gulp plugin that searches for asset references (URLs) and replaces them with a cache busted representation.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jaykay-design/gulp-css-asset-timestamp.git"
+  },
+  "keywords": [
+    "gulpplugin",
+    "bust",
+    "cache",
+    "timestamp",
+    "assets"
+  ],
+  "author": "John Caprez <jay0@jaykay-design.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jaykay-design/gulp-css-asset-timestamp/issues"
+  },
+  "homepage": "https://github.com/jaykay-design/gulp-css-asset-timestamp",
+  "dependencies": {
+    "event-stream": "^3.3.0",
+    "replacestream": "^2.1.0"
+  },
+  "devDependencies": {
+    "chai": "^2.3.0",
+    "mocha": "^2.2.4",
+    "vinyl": "^0.4.6"
+  }
+}
