@@ -4,7 +4,7 @@ gulp-css-asset-timestamp
 Gulp plugin that searches for asset references (URLs) and replaces them
 with a cache busted representation.
 
-[![Build Status](https://travis-ci.org/jaykay-design/gulp-css-asset-timestamp.svg)](https://travis-ci.org/jaykay-design/gulp-css-asset-timestamp)
+[![Build Status](https://github.com/jaykay-design/gulp-css-asset-timestamp/actions/workflows/node.js.yml/badge.svg)]
 
 ## Install
 
