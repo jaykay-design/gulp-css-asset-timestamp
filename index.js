@@ -18,27 +18,25 @@ var plugin = function (options) {
     var opts = Object.assign({}, defaults, options);
 
     var replaceFunc = function (match, group) {
+        var assetUrl = url.parse(group),
+            assetFilePath = path.join(opts.assetRoot, assetUrl.pathname),
+            stats
 
-        if (group.indexOf('http') === 0) {
+        if (assetUrl.host !== null) {
             return match;
         }
 
-        var parts = group.split(','),
-            assetPath = parts.shift(),
-            assetFullPath = path.join(opts.assetRoot, assetPath),
-            stats;
-
         try {
-            stats = fs.statSync(assetFullPath);
+            stats = fs.statSync(assetFilePath);
         } catch (ex) {
             return match;
         }
 
-        var assetUrl = url.parse(opts.assetURL + assetPath);
         var params = new URLSearchParams(url.search);
 
         params.append('v', stats.mtime.valueOf());
-        assetUrl.search = params.toString()
+        assetUrl.search = params.toString();
+        assetUrl = url.parse(opts.assetURL + assetUrl.format());
 
         return match.replace(group, assetUrl.format());
     };

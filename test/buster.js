@@ -84,7 +84,8 @@ describe('gulp-cache-buster', function () {
 
             es.readArray([file])
                 .pipe(buster({
-                    assetURL: 'https://example.com'
+                    assetURL: 'https://example.com',
+                    assetRoot : path.join(__dirname,'../')
                 }))
                 .pipe(es.map(function (file, cb) {
                     file.pipe(es.wait(function (err, data) {
@@ -108,7 +109,8 @@ describe('gulp-cache-buster', function () {
 
             es.readArray([file])
                 .pipe(buster({
-                    assetURL: 'https://example.com'
+                    assetURL: 'https://example.com',
+                    assetRoot : path.join(__dirname,'../')
                 }))
                 .pipe(es.map(function (file, cb) {
                     file.pipe(es.wait(function (err, data) {
@@ -132,7 +134,8 @@ describe('gulp-cache-buster', function () {
             });
             es.readArray([file])
                 .pipe(buster({
-                    assetURL: 'https://example.com'
+                    assetURL: 'https://example.com',
+                    assetRoot : path.join(__dirname,'../')
                 }))
                 .pipe(es.map(function (file, cb) {
                     assert.ok(file.isNull());
@@ -149,7 +152,7 @@ describe('gulp-cache-buster', function () {
         it('should cache bust asset references', function (done) {
             createDistAssets();
             var expectedDist = makeCSSBuffer(function (asset) {
-                return 'https://example.com/dist' + asset + '?v=' + fs.statSync(path.join(__dirname, '/../dist', asset)).mtime.valueOf();
+                return 'https://example.com' + asset + '?v=' + fs.statSync(path.join(__dirname, '/../dist', asset)).mtime.valueOf();
             });
 
             var file = new File({
@@ -158,7 +161,7 @@ describe('gulp-cache-buster', function () {
 
             es.readArray([file])
                 .pipe(buster({
-                    assetRoot: '/dist',
+                    assetRoot: path.join(__dirname, '../dist'),
                     assetURL: 'https://example.com'
                 }))
                 .pipe(es.map(function (file, cb) {
@@ -185,7 +188,8 @@ describe('gulp-cache-buster', function () {
 
             es.readArray([file])
                 .pipe(buster({
-                    assetURL: 'https://example.com'
+                    assetURL: 'https://example.com',
+                    assetRoot : path.join(__dirname,'../')
                 }))
                 .pipe(es.map(function (file, cb) {
                     var exp = makeCSSBuffer(asset => asset);
