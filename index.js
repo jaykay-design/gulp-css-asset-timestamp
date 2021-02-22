@@ -1,6 +1,7 @@
 'use strict';
 
 var path = require('path');
+var url = require('url');
 
 var es = require('event-stream');
 var rs = require('replacestream');
@@ -24,20 +25,22 @@ var plugin = function (options) {
 
         var parts = group.split(','),
             assetPath = parts.shift(),
-            args = parts.map(p => p.trim()),
-            assetPath = path.join(opts.assetRoot, assetPath),
+            assetFullPath = path.join(opts.assetRoot, assetPath),
             stats;
 
         try {
-            stats = fs.statSync(path.join(__dirname, assetPath));
+            stats = fs.statSync(assetFullPath);
         } catch (ex) {
             return match;
         }
 
-        var url = new URL(opts.assetURL + assetPath);
-        url.searchParams.append('v', stats.mtime.valueOf());
+        var assetUrl = url.parse(opts.assetURL + assetPath);
+        var params = new URLSearchParams(url.search);
 
-        return match.replace(group, url.toString());
+        params.append('v', stats.mtime.valueOf());
+        assetUrl.search = params.toString()
+
+        return match.replace(group, assetUrl.format());
     };
 
     return es.map(function (file, cb) {
